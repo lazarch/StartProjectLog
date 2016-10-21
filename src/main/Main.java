@@ -7,6 +7,8 @@ public class Main {
 
     public static void main(String[] args) {
         if (!setupLogger()) utils.UtilsForAll.exitFromProgram();
+        //log выводится только в консоль
+        utils.UtilsForAll.setLoggerConsoleHandler(logger);
     }
 
     private static boolean setupLogger() {

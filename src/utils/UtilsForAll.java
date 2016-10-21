@@ -24,8 +24,36 @@ public class UtilsForAll {
                 return true;
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
         return false;
+    }
+
+    public static boolean setLoggerConsoleHandler(Logger logger) {
+        //удалить все хэндлерсы для логгера
+        Handler[] handlers = logger.getHandlers();
+        for (Handler handler : handlers) {
+            logger.removeHandler(handler);
+        }
+        //добавить новый
+        ConsoleHandler fh;
+        try {
+            fh = new ConsoleHandler();
+            fh.setFormatter(new Formatter() {
+                @Override
+                public String format(LogRecord record) {
+                    return String.format("%s: %s%n",
+                            fh.getLevel().getLocalizedName(),
+                            record.getMessage()
+                    );
+                }
+            });
+            logger.addHandler(fh);
+            logger.setUseParentHandlers(false);
+        } catch (SecurityException e) {
+            logger.log(Level.SEVERE, "Exception: ", e);
+            return false;
+        }
+        return true;
     }
 }
