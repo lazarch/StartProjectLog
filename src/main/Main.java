@@ -6,8 +6,9 @@ public class Main {
     private static Logger logger;
 
     public static void main(String[] args) {
+        //log выводится в файл или консоль через комментирование строк в logger.properties
         if (!setupLogger()) utils.UtilsForAll.exitFromProgram();
-        //log выводится только в консоль
+        //log выводится только в консоль без использования logger.properties
         utils.UtilsForAll.setLoggerConsoleHandler(logger);
     }
 
